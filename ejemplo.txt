@@ -1,0 +1,35 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class SepararNombres {
+
+    public static void main(String[] args) {
+        String[] nombresCompletos = {"José Luis Olvera Velázquez", "Luis Arellano Castellanos", "Ana Sofía Carranza De la Madrid",
+    "Jorge Luis Alberto Morales De la Peña"};
+
+        for (String nombreCompleto : nombresCompletos) {
+            separarNombre(nombreCompleto);
+        }
+    }
+
+    private static void separarNombre(String nombreCompleto) {
+        Pattern pattern = Pattern.compile("(?:^|\\s)([A-Za-z]+)(?:\\s+([A-Za-z]+)?)\\s+([A-Za-z]+)\\s+(?:[A-Za-z]+)?");
+        Matcher matcher = pattern.matcher(nombreCompleto);
+
+        if (matcher.find()) {
+            String primerNombre = matcher.group(1);
+            String segundoNombre = matcher.group(2);
+            String apellidoPaterno = matcher.group(3);
+            String apellidoMaterno = matcher.group(4);
+
+            System.out.println("Nombre completo: " + nombreCompleto);
+            System.out.println("Primer nombre: " + primerNombre);
+            System.out.println("Segundo nombre: " + (segundoNombre != null ? segundoNombre : ""));
+            System.out.println("Apellido paterno: " + apellidoPaterno);
+            System.out.println("Apellido materno: " + (apellidoMaterno != null ? apellidoMaterno : ""));
+            System.out.println("---------------------------------");
+        } else {
+            System.out.println("Error: El formato del nombre completo no es válido: " + nombreCompleto);
+        }
+    }
+}
